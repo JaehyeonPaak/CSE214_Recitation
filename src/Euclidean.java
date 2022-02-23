@@ -5,10 +5,12 @@
 //
 
 public class Euclidean {
+    //Interface named GCD...
     public static interface GCD {
         public int gcdImpl(int a, int b);
 
         //default methods can have implementations
+        //replace the value a and b to absolute values...
         public default int gcd(int a, int b) {
             return gcdImpl(abs(a), abs(b));
         }
@@ -18,7 +20,21 @@ public class Euclidean {
     }
 
     //TODO: implement GCD using subtraction
+    //the class GCDBySub is child class of GCD class...
     public static class GCDBySub implements GCD {
+
+        @Override
+        public int gcdImpl(int a, int b) {
+            if(a > b) {
+                return gcdImpl(a - b, b);
+            }
+            else if(b > a) {
+                return gcdImpl(b - a, a);
+            }
+            else {
+                return a;
+            }
+        }
     }
 
     //TODO: implement GCD using modulo
@@ -27,7 +43,9 @@ public class Euclidean {
 
     public static void test(GCD gcd, int a, int b) {
         System.out.println("GCD: " + gcd.gcd(a, b));
+        //calling gcd(a, b) by using virtual method...
     }
+
     public static void main(String[] args) {
         final int a = 39;
         final int b = -15;
