@@ -38,8 +38,21 @@ public class Euclidean {
     }
 
     //TODO: implement GCD using modulo
-    //public static class GCDByMod implements GCD {
-    //}
+    public static class GCDByMod implements GCD {
+
+        @Override
+        public int gcdImpl(int a, int b) {
+            if(a == 0) {
+                return b;
+            }
+            else if(a > b) {
+                return gcdImpl(a % b, b);
+            }
+            else {
+                return gcdImpl(b % a, a);
+            }
+        }
+    }
 
     public static void test(GCD gcd, int a, int b) {
         System.out.println("GCD: " + gcd.gcd(a, b));
@@ -51,6 +64,6 @@ public class Euclidean {
         final int b = -15;
 
         test(new GCDBySub(), a, b);
-        //test(new GCDByMod(), a, b);
+        test(new GCDByMod(), a, b);
     }
 }
