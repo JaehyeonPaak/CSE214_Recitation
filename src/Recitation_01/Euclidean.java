@@ -1,4 +1,4 @@
-//
+package Recitation_01;//
 // 0. Download Euclidean.java
 // 1. Implement GCDBySub class
 // 2. Implement GCDByMod class

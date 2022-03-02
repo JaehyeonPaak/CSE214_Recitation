@@ -1,9 +1,9 @@
 package Recitation_02;
 
 public class Polynomial {
-    private double[] coef;
+    private double[] coef; //field...
 
-    public Polynomial(double[] coef) {
+    public Polynomial(double[] coef) { //constructor...
         //trim the leading zeros
         int n = coef.length;
         while(n >= 2 && coef[n-1] == 0)
