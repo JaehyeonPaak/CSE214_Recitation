@@ -37,19 +37,12 @@ public class Polynomial {
         return new Polynomial(c);
     }
     public Polynomial mul(Polynomial that) { // (x + 1) * (x - 1) / {1, 1} {-1, 1}...
-        double[] c = new double[this.coef.length + that.coef.length - 1]; // c.length == 3...
+        double[] c = new double[this.coef.length + that.coef.length - 1];
+        //leading coefficient...
         //TODO implement mul
-        for(int i = c.length - 1; i >= 0; i--) { //2, 1, 0...
-            if(i == 2) {
-                c[i] = this.coef[i - 1] * that.coef[i - 1];
-            }
-            else if(i == 1) {
-                c[i] = (this.coef[i - 1] * that.coef[i]) + (this.coef[i] * this.coef[i - 1]);
-            }
-            else {
-                c[i] = this.coef[i] * that.coef[i];
-            }
-        }
+        for(int i = 0; i < this.coef.length; i++)
+            for(int j = 0; j < that.coef.length; j++)
+                c[i+j] += this.coef[i] * that.coef[j];
         return new Polynomial(c);
     }
     public Polynomial[] longdiv(Polynomial that) {
