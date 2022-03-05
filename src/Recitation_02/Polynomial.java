@@ -24,10 +24,15 @@ public class Polynomial {
         return sb.toString();
     }
     public Polynomial add(Polynomial that) {
-        double[] c = new double[Math.max(this.coef.length, that.coef.length)]; //Math.max(a, b) == a (if a >= b)...
+        double[] c = new double[Math.max(this.coef.length, that.coef.length)];
+        //Creating Array named c...
+        //Math.max(a, b) == a (if a >= b)...
         //TODO implement add
-        for(int i = c.length - 1; i >= 0; i--) {
-            c[i] = this.coef[i] + that.coef[i];
+        for(int i = 0; i < this.coef.length; i++) {
+            c[i] = this.coef[i];
+        }
+        for(int i = 0; i < that.coef.length; i++) {
+            c[i] += that.coef[i];
         }
         return new Polynomial(c);
     }
