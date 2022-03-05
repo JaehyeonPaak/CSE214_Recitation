@@ -60,7 +60,13 @@ public class Polynomial {
         //the long division algorithm
         //num -> quo * den + num
         //TODO: implement the rest
-        return null;
+        for(int qi = quo.length-1; qi >= 0; qi--) {
+            quo[qi] = num[qi + dd] / den[dd];
+            for(int i = 0; i < dd; i++)
+                num[qi+i] = num[qi+i] - quo[qi] * den[i];
+            num[qi+dd] = 0;
+        }
+        return new Polynomial[] {new Polynomial(quo), new Polynomial(num)};
     }
     public static void main(String[] args) {
         Polynomial a = new Polynomial(new double[] {-1, 1}); //x - 1...
