@@ -43,11 +43,16 @@ public class Generic {
     }
 
     //Find the index of the minimum element in arr[from...]
-    public static <E extends Ordered> int findMinIndex(E[] arr, int from) { //findMinIndex(iarr, 0)...
-        E min = arr[from];    //minimum element Int min = arr[0]
-        int minIndex = from;  //index of min minIndex = 0
+    public static <E extends Ordered> int findMinIndex(E[] arr, int from) {
+        E min = arr[from];    //minimum element
+        int minIndex = from;  //index of min
         //TODO: find the index of the minimum element of arr[from...]
-
+        for(int i = 1; i < arr.length; i++) {
+            if(arr[from].ge(arr[i])) {
+                from = i;
+            }
+        }
+        minIndex = from;
         return minIndex;
     }
 
