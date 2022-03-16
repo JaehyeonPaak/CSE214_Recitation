@@ -23,8 +23,8 @@ public class Generic {
     }
 
     public static class Int implements Ordered {
-        public int n;
-        public Int(int n) { this.n = n; }
+        public int n; //field...
+        public Int(int n) { this.n = n; } //constructor...
         public String toString() { return Integer.toString(n); }
         public boolean ge(Ordered a) {
             Int that = (Int)a;
@@ -67,11 +67,7 @@ public class Generic {
         int n = arr.length;
 
         //TODO: swap arr[0] and arr[n-1], swap arr[1] and arr[n-2], ...
-        for(int i = 0; i < n / 2; i++) {
-            for(int j = n - 1; j > n / 2; j--) {
-                swap(arr, i, j);
-            }
-        }
+
     }
 
     public static <E> void swap(E[] arr, int i, int j) {
