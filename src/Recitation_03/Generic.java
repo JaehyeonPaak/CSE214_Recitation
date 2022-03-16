@@ -47,12 +47,12 @@ public class Generic {
         E min = arr[from];    //minimum element
         int minIndex = from;  //index of min
         //TODO: find the index of the minimum element of arr[from...]
-        for(int i = 1; i < arr.length; i++) {
-            if(arr[from].ge(arr[i])) {
-                from = i;
+        for(int i = from + 1; i < arr.length; i++) {
+            if(min.gt(arr[i])) {
+                minIndex = i;
+                min = arr[minIndex];
             }
         }
-        minIndex = from;
         return minIndex;
     }
 
@@ -63,6 +63,8 @@ public class Generic {
 
             for(int i = 0; i < n; i++) {
                 //TODO: find the min index j in arr[i..n] and swap arr[i] and arr[j]
+                int j = findMinIndex(arr, i);
+                swap(arr, i, j);
             }
         }
     }
