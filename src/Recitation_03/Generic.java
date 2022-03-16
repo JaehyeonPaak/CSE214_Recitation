@@ -72,9 +72,12 @@ public class Generic {
     //Revert the array: [1, 2, 3] -> [3, 2, 1]
     public static void revert(Object[] arr) {
         int n = arr.length;
-
         //TODO: swap arr[0] and arr[n-1], swap arr[1] and arr[n-2], ...
-
+        for(int i = 0; i < n; i++) {
+            if(i <= n - 1 - i) {
+                swap(arr, i, n - 1 - i);
+            }
+        }
     }
 
     public static <E> void swap(E[] arr, int i, int j) {
