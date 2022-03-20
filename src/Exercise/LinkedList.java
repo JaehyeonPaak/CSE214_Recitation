@@ -80,6 +80,7 @@ public class LinkedList {
         //insertion sort (backward: insert from the back to the front)
         public void insSort() {
             //TODO: implement insSort
+
         }
 
         //print the list
@@ -193,19 +194,20 @@ public class LinkedList {
             DblNode<E> p = (DblNode<E>) pos;
             n.next = p.next;
             n.prev = p;
-            DblNode<E> t = (DblNode<E>) tail;
-            n.prev = t.prev;
-            t.prev = n;
+            n.next.prev = n;
+            p.next = n;
         }
 
         @Override
         protected Node<E> getNext(Node<E> pos) {
-            return null;
+            DblNode<E> p = (DblNode<E>) pos;
+            return p.next;
         }
 
         @Override
         protected Node<E> getPrev(Node<E> pos) {
-            return null;
+            DblNode<E> p = (DblNode<E>) pos;
+            return p.prev;
         }
     }
 
