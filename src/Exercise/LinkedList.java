@@ -25,6 +25,8 @@ public class LinkedList {
 
     //abstract class AbsList
     public static abstract class AbsList<E extends Ordered> {
+
+        //inner interface...
         protected static interface Node<E extends Ordered> {
             E getElement();
             void setElement(E e);
@@ -42,11 +44,13 @@ public class LinkedList {
         //add e to the first position
         public void addFirst(E e) {
             //TODO: implement addFirst using addAfter
+            addAfter(makeNode(e), head);
         }
 
         //add e to the last position
         public void addLast(E e) {
             //TODO: implement addLast using addAfter and getPrev
+            addAfter(makeNode(e), getPrev(tail));
         }
 
         //find the minimum node
@@ -90,6 +94,7 @@ public class LinkedList {
 
     //singly linked list
     public static class SglList<E extends Ordered> extends AbsList<E> {
+
         protected static class SglNode<E extends Ordered> implements Node<E> {
             E e;
             SglNode<E> next;
@@ -100,6 +105,39 @@ public class LinkedList {
         }
 
         //TODO: implement all abstract methods of AbsList
+        @Override
+        protected Node<E> makeNode(E e) {
+            return new SglNode<>(e, null);
+        }
+
+        @Override
+        protected void initList(Node<E> head, Node<E> tail) {
+            SglNode<E> h = (SglNode<E>) head;
+            SglNode<E> t = (SglNode<E>) tail;
+            h.next = t;
+        }
+
+        @Override
+        protected void addAfter(Node<E> node, Node<E> pos) {
+            SglNode<E> n = (SglNode<E>) node;
+            SglNode<E> p = (SglNode<E>) pos;
+            n.next = p.next;
+            p.next = n;
+        }
+
+        @Override
+        protected Node<E> getNext(Node<E> pos) {
+            return null;
+        }
+
+        @Override
+        protected Node<E> getPrev(Node<E> pos) {
+            SglNode<E> h = (SglNode<E>) head;
+            while(h.next != pos) {
+                h = h.next;
+            }
+            return h;
+        }
     }
 
     //doubly linked list
@@ -116,6 +154,30 @@ public class LinkedList {
         }
 
         //TODO: implement all abstract methods of AbsList
+        @Override
+        protected Node<E> makeNode(E e) {
+            return null;
+        }
+
+        @Override
+        protected void initList(Node<E> head, Node<E> tail) {
+
+        }
+
+        @Override
+        protected void addAfter(Node<E> node, Node<E> pos) {
+
+        }
+
+        @Override
+        protected Node<E> getNext(Node<E> pos) {
+            return null;
+        }
+
+        @Override
+        protected Node<E> getPrev(Node<E> pos) {
+            return null;
+        }
     }
 
     public static class Int implements Ordered {
