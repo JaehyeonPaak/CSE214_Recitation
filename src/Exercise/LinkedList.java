@@ -82,10 +82,8 @@ public class LinkedList {
             //TODO: implement insSort
             for(Node<E> pos1 = getNext(getNext(head)); pos1 != tail; pos1 = getNext(pos1)) {
                 for(Node<E> pos = getNext(getNext(head)); pos != tail; pos = getNext(pos)) {
-                    for(Node<E> tmp = pos; tmp != head; tmp = getPrev(tmp)) {
-                        if(pos.getElement().le(tmp.getElement())) {
-                            swap(pos, tmp);
-                        }
+                    for(Node<E> tmp = pos; tmp != head && pos.getElement().le(tmp.getElement()); tmp = getPrev(tmp)) {
+                        swap(pos, tmp);
                     }
                 }
             }
