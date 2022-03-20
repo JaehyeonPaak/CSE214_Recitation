@@ -189,7 +189,13 @@ public class LinkedList {
 
         @Override
         protected void addAfter(Node<E> node, Node<E> pos) {
-
+            DblNode<E> n = (DblNode<E>) node;
+            DblNode<E> p = (DblNode<E>) pos;
+            n.next = p.next;
+            n.prev = p;
+            DblNode<E> t = (DblNode<E>) tail;
+            n.prev = t.prev;
+            t.prev = n;
         }
 
         @Override
