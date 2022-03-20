@@ -80,14 +80,14 @@ public class LinkedList {
         //insertion sort (backward: insert from the back to the front)
         public void insSort() {
             //TODO: implement insSort
-            for(Node<E> pos1 = getNext(getNext(head)); pos1 != tail; pos1 = getNext(pos1)) {
-                for(Node<E> pos = getNext(getNext(head)); pos != tail; pos = getNext(pos)) {
-                    for(Node<E> tmp = pos; tmp != head && pos.getElement().le(tmp.getElement()); tmp = getPrev(tmp)) {
-                        swap(pos, tmp);
+            for(Node<E> pos = getNext(getNext(head)); pos != tail; pos = getNext(pos)) { //pos is target number...
+                for(Node<E> tmp = getPrev(pos); tmp != head; tmp = getPrev(tmp)) {
+                    if(tmp.getElement().ge(pos.getElement())) {
+                        swap(tmp, pos);
+                        pos = getPrev(pos);
                     }
                 }
             }
-
         }
 
         //print the list
