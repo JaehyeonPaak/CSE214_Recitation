@@ -71,8 +71,10 @@ public class LinkedList {
         //selection sort
         public void selSort() {
             //TODO: implement selSort using findMin
-            head.getElement()
-            findMin(getNext(head))
+            for(Node<E> pos = getNext(head); pos != tail; pos = getNext(pos)) {
+                Node<E> min = findMin(pos);
+                swap(pos, min);
+            }
         }
 
         //insertion sort (backward: insert from the back to the front)
