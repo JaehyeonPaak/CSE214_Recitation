@@ -57,11 +57,22 @@ public class LinkedList {
         protected Node<E> findMin(Node<E> from) {
             //TODO: implement findMin
             Node<E> min = from;
+
+            Node<E> p = getNext(min);
+            while(p != tail) {
+                if(min.getElement().ge(p.getElement())) {
+                    min = p;
+                }
+                p = getNext(p);
+            }
+            return min;
         }
 
         //selection sort
         public void selSort() {
             //TODO: implement selSort using findMin
+            head.getElement()
+            findMin(getNext(head))
         }
 
         //insertion sort (backward: insert from the back to the front)
@@ -127,7 +138,8 @@ public class LinkedList {
 
         @Override
         protected Node<E> getNext(Node<E> pos) {
-            return null;
+            SglNode<E> p = (SglNode<E>) pos;
+            return p.next;
         }
 
         @Override
