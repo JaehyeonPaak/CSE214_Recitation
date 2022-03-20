@@ -156,13 +156,19 @@ public class LinkedList {
 
     //doubly linked list
     public static class DblList<E extends Ordered> extends AbsList<E> {
+
+        //inner class...
         protected static class DblNode<E extends Ordered> implements Node<E> {
             E e;
-            DblNode<E> prev, next;
+            DblNode<E> prev;
+            DblNode<E> next;
 
             DblNode(E e, DblNode<E> prev, DblNode<E> next) {
-                this.e = e; this.prev = prev; this.next = next;
+                this.e = e;
+                this.prev = prev;
+                this.next = next;
             }
+
             public E getElement()       { return e; }
             public void setElement(E e) { this.e = e; }
         }
@@ -170,12 +176,15 @@ public class LinkedList {
         //TODO: implement all abstract methods of AbsList
         @Override
         protected Node<E> makeNode(E e) {
-            return null;
+            return new DblNode<>(e, null, null);
         }
 
         @Override
         protected void initList(Node<E> head, Node<E> tail) {
-
+            DblNode<E> h = (DblNode<E>) head;
+            DblNode<E> t = (DblNode<E>) tail;
+            t.prev = h;
+            h.next = t;
         }
 
         @Override
