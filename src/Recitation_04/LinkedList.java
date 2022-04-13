@@ -1,4 +1,4 @@
-package Exercise;
+package Recitation_04;
 
 public class LinkedList {
     //interface Ordered
