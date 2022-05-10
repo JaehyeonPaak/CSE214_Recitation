@@ -2,7 +2,7 @@ package Recitation_08;
 
 public class LambdaExercise {
     //EPS is a small number
-    public static final double EPS = 1e-10; //1e-10 == 1/10^10...
+    public static final double EPS = 1e-10;
 
     //Interfaces
 
@@ -47,13 +47,42 @@ public class LambdaExercise {
     public static Fun<Fun<Double,Double>,       /*e.g. f*/
             Fun<Double,Double>>       /*e.g. f'*/
             derivative =
+            (f) -> (x) -> (f.apply(x + EPS) - f.apply(x)) / EPS;
+
+    //scale
+    //TODO: scale(s) takes a function f and returns a function scaled by s
+    //      i.e. scale(5)(f)(x) = 5*f(x)
+    public static Fun<Double,               /*e.g. scale factor 5*/
+            Fun<Fun<Double, Double>,  /*e.g. function f*/
+                    Fun<Double, Double>>> /*e.g. 5*f*/
+            scale =
+            (s) -> (f) -> (x) -> s * f.apply(x);
+
+    //add
+    //TODO: add(f) takes a function g and returns a function f + g
+    //      i.e. add(f)(g)(x) = f(x) + g(x)
+    public static Fun<Fun<Double,Double>,        /*e.g. f*/
+            Fun<Fun<Double, Double>,   /*e.g. g*/
+                    Fun<Double, Double>>>  /*e.g. f + g*/
+            add =
+            (f) -> (g) -> (x) -> f.apply(x) + g.apply(x);
+
+    protected static boolean equ(double a, double b) {
+        return Math.abs(a - b) < 1e-5;
+    }
+
+    protected static void onFalseThrow(boolean b) {
+        if(!b)
+            throw new RuntimeException("Error: unexpected");
+    }
 
     protected static void test_deriv() {
         Fun<Double, Double> sin = x -> Math.sin(x);
         Fun<Double, Double> cos = x -> Math.cos(x);
-        //TODO: sinDeriv is the derivative of sin
-        //      using deriv and sin implement sinDeriv
-        Fun<Double, Double> sinDeriv =
+
+        //TODO:Â sinDerivÂ isÂ theÂ derivativeÂ ofÂ sin
+        //Â Â Â Â Â Â usingÂ derivÂ andÂ sinÂ implementÂ sinDeriv
+        Fun<Double, Double> sinDeriv = derivative.apply(sin);
 
         for(double x = 0; x < 3.14; x += 0.1) {
             double a = cos.apply(x);
@@ -62,46 +91,24 @@ public class LambdaExercise {
         }
     }
 
-    //scale
-    //TODO: scale(s) takes a function f and returns a function scaled by s
-    //      i.e. scale(5)(f)(x) = 5*f(x)
-    public static Fun<Double,                   /*e.g. scale factor 5*/
-            Fun<Fun<Double, Double>,  /*e.g. function f*/
-                    Fun<Double, Double>>> /*e.g. 5*f*/
-            scale =
-
     protected static void test_scale() {
         Fun<Double, Double> sin = x -> Math.sin(x);
-        Fun<Double, Double> cos = x -> Math.cos(x);
 
         //TODO: scale5 is a function that takes f and scale it by 5.0
         //      i.e. scale5(f)(x) = 5 * f(x).
         //      using scale implement scale5
-        Fun<Fun<Double,Double>, Fun<Double,Double>> scale5 =
+        Fun<Fun<Double,Double>, Fun<Double,Double>> scale5 = scale.apply(5.0);
 
-        //TODO: sin5(x) = 5 * sin(x), cos5(x) = 5 * cos(x)
-        //      using scale5, sin and cos implement sin5 and cos5
-        Fun<Double, Double> sin5 =
-        Fun<Double, Double> cos5 =
+        //TODO: sin5(x) = 5 * sin(x)
+        //      using scale5 and sin implement sin5
+        Fun<Double, Double> sin5 = scale5.apply(sin);
 
         for(double x = 0; x < 3.14; x += 0.1) {
             double a = 5*sin.apply(x);
             double b = sin5.apply(x);
             onFalseThrow(equ(a, b));
-
-            a = 5*cos.apply(x);
-            b = cos5.apply(x);
-            onFalseThrow(equ(a, b));
         }
     }
-
-    //add
-    //TODO: add(f) takes a function g and returns a function f + g
-    //      i.e. add(f)(g)(x) = f(x) + g(x)
-    public static Fun<Fun<Double,Double>,          /*e.g. f*/
-            Fun<Fun<Double, Double>,   /*e.g. g*/
-                    Fun<Double, Double>>>  /*e.g. f + g*/
-            add =
 
     protected static void test_add() {
         Fun<Double, Double> sin = x -> Math.sin(x);
@@ -109,7 +116,7 @@ public class LambdaExercise {
         //TODO: sinPlus is a function that takes f and add sin to it
         //      i.e. sinPlus(f)(x) = f(x) + sin(x).
         //      using add and sin implement sinPlus
-        Fun<Fun<Double,Double>, Fun<Double,Double>> sinPlus =
+        Fun<Fun<Double,Double>, Fun<Double,Double>> sinPlus = add.apply(sin);
 
         //TODO: sinPlusCos(x) = sin(x) + cos(x)
         //      using sinPlus and cos implement sinPlusCos
@@ -128,30 +135,21 @@ public class LambdaExercise {
 
         //TODO: sin3(x) = 3*sin(x).
         //      using scale, sin implement sin3
-        Fun<Double, Double> sin3 =
+        Fun<Double, Double> sin3 = scale.apply(3.).apply(sin);
 
         //TODO: cos5(x) = 5*cos(x).
         //      using scale, cos implement cos5
-        Fun<Double, Double> cos5 =
+        Fun<Double, Double> cos5 = scale.apply(5.).apply(cos);
 
         //TODO: com(x) = 3*sin(x) + 5*cos(x).
         //      using add, sin3 and cos5 implement com
-        Fun<Double, Double> com =
+        Fun<Double, Double> com = add.apply(sin3).apply(cos5);
 
         for(double x = 0; x < 3.14; x += 0.1) {
             double a = 3.*sin.apply(x) + 5.*cos.apply(x);
             double b = com.apply(x);
             onFalseThrow(equ(a, b));
         }
-    }
-
-    protected static boolean equ(double a, double b) {
-        return Math.abs(a - b) < 1e-5;
-    }
-
-    protected static void onFalseThrow(boolean b) {
-        if(!b)
-            throw new RuntimeException("Error: unexpected");
     }
 
     public static void main(String[] args) {
